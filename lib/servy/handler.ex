@@ -16,9 +16,8 @@ defmodule Servy.Handler do
     %{method: method, path: path, resp_body: ""}
   end
 
-  def route(_conv) do
-    # TODO: Create a new map that also has the response body:
-    _conv = %{method: "GET", path: "/wildthings", resp_body: "Bears, Lions, Tigers"}
+  def route(conv) do
+    %{conv | resp_body: "Bears, Lions, Tigers"}
   end
 
   def format_response(_conv) do
