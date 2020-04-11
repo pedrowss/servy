@@ -1,7 +1,7 @@
 defmodule Servy.Handler do
   @moduledoc "Handles HTTP requests"
 
-  @pages_path Path.expand("../../pages", __DIR__)
+  @pages_path Path.expand("pages", File.cwd!())
 
   import Servy.Plugins, only: [rewrite_path: 1, log: 1, track: 1]
   import Servy.Parser, only: [parse: 1]
