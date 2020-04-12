@@ -5,7 +5,7 @@ defmodule Servy.Handler do
 
   @pages_path Path.expand("pages", File.cwd!())
 
-  import Servy.Plugins, only: [rewrite_path: 1, log: 1, track: 1]
+  import Servy.Plugins, only: [rewrite_path: 1, log: 1, track: 1, emojify: 1]
   import Servy.Parser, only: [parse: 1]
   import Servy.FileHandler, only: [handle_file: 2]
 
@@ -20,15 +20,6 @@ defmodule Servy.Handler do
     |> track
     |> format_response
   end
-
-  def emojify(%{status: 200} = conv) do
-    emojies = String.duplicate("🎉", 5)
-    body = emojies <> "\n" <> conv.resp_body <> "\n" <> emojies
-
-    %{conv | resp_body: body}
-  end
-
-  def emojify(conv), do: conv
 
   def route(%Conv{method: "GET", path: "/about"} = conv) do
     file =

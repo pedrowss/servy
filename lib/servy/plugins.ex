@@ -20,4 +20,13 @@ defmodule Servy.Plugins do
   def track(%Conv{} = conv), do: conv
 
   def log(%Conv{} = conv), do: IO.inspect(conv, label: "conv map ✅")
+
+  def emojify(%Conv{status: 200} = conv) do
+    emojies = String.duplicate("🎉", 5)
+    body = emojies <> "\n" <> conv.resp_body <> "\n" <> emojies
+
+    %{conv | resp_body: body}
+  end
+
+  def emojify(%Conv{} = conv), do: conv
 end
