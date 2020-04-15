@@ -3,6 +3,7 @@ defmodule Servy.Handler do
 
   alias Servy.Conv
   alias Servy.BearController
+  alias Servy.Api
 
   @pages_path Path.expand("pages", File.cwd!())
 
@@ -50,7 +51,7 @@ defmodule Servy.Handler do
   end
 
   def route(%Conv{method: "GET", path: "/api/bears"} = conv) do
-    Servy.Api.BearController.index(conv)
+    Api.BearController.index(conv)
   end
 
   def route(%Conv{method: "GET", path: "/bears"} = conv) do
@@ -89,17 +90,5 @@ defmodule Servy.Handler do
     \r
     #{conv.resp_body}
     """
-  end
-end
-
-defmodule Servy.Api.BearController do
-  alias Servy.Wildthings
-
-  def index(conv) do
-    json =
-      Wildthings.list_bears()
-      |> Jason.encode!()
-
-    %{conv | status: 200, resp_content_type: "application/json", resp_body: json}
   end
 end
