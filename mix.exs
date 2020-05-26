@@ -21,7 +21,8 @@ defmodule Servy.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:jason, "~> 1.2"}
+      {:jason, "~> 1.2"},
+      {:httpoison, "~> 1.6"}
     ]
   end
 end
