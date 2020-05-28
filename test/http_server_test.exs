@@ -6,28 +6,37 @@ defmodule HttpServerTest do
   test "accepts a request on a socket and sends back a response" do
     spawn(HttpServer, :start, [4000])
 
-    parent = self()
+    url = "http://localhost:4000/wildthings"
 
-    max_concurrent_requests = 5
+    1..5
+    |> Enum.map(fn _ -> Task.async(fn -> HTTPoison.get(url) end) end)
+    |> Enum.map(&Task.await/1)
+    |> Enum.map(&assert_successful_response/1)
+  end
 
-    # Spawn the client processes
-    for _ <- 1..max_concurrent_requests do
-      spawn(fn ->
-        # Send the request
-        {:ok, response} = HTTPoison.get("http://localhost:4000/wildthings")
+  defp assert_successful_response({:ok, response}) do
+    assert response.status_code == 200
+    assert response.body == "Bears, Lions, Tigers"
+  end
 
-        # Send the response back to the parent
-        send(parent, {:ok, response})
-      end)
-    end
+  test "accepts a request on a socket and sends back a response for multiples requests" do
+    spawn(HttpServer, :start, [4000])
 
-    # Await all {:handled, response} messages from spawned processes
-    for _ <- 1..max_concurrent_requests do
-      receive do
-        {:ok, response} ->
-          assert response.status_code == 200
-          assert response.body == "Bears, Lions, Tigers"
-      end
-    end
+    urls = [
+      "http://localhost:4000/wildthings",
+      "http://localhost:4000/bears",
+      "http://localhost:4000/bears/1",
+      "http://localhost:4000/wildlife",
+      "http://localhost:4000/api/bears"
+    ]
+
+    urls
+    |> Enum.map(&Task.async(fn -> HTTPoison.get(&1) end))
+    |> Enum.map(&Task.await/1)
+    |> Enum.map(&assert_successful_response_for_multiple_requests/1)
+  end
+
+  defp assert_successful_response_for_multiple_requests({:ok, response}) do
+    assert response.status_code == 200
   end
 end
