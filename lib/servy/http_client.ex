@@ -1,4 +1,6 @@
 defmodule Servy.HttpClient do
+  @moduledoc false
+
   def send_request(request) do
     # to make it runnable on one machine
     some_host_in_net = 'localhost'

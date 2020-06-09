@@ -1,4 +1,6 @@
 defmodule Servy.BearView do
+  @moduledoc false
+
   require EEx
 
   @templates_path Path.expand("../../templates", __DIR__)

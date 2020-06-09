@@ -1,4 +1,6 @@
 defmodule Servy.Fetcher do
+  @moduledoc false
+
   def async(fun) do
     parent = self()
 

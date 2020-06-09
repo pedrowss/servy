@@ -1,4 +1,6 @@
 defmodule Servy.UserApi do
+  @moduledoc false
+
   def query(id) do
     api_url(id)
     |> HTTPoison.get()

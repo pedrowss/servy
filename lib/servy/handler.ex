@@ -1,12 +1,12 @@
 defmodule Servy.Handler do
   @moduledoc "Handles HTTP requests"
 
-  alias Servy.Conv
-  alias Servy.BearController
   alias Servy.Api
-  alias Servy.VideoCam
+  alias Servy.BearController
+  alias Servy.Conv
   alias Servy.Fetcher
   alias Servy.Tracker
+  alias Servy.VideoCam
 
   @pages_path Path.expand("pages", File.cwd!())
 

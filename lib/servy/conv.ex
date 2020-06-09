@@ -1,4 +1,6 @@
 defmodule Servy.Conv do
+  @moduledoc false
+
   defstruct method: "",
             path: "",
             params: %{},

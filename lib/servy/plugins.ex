@@ -1,4 +1,6 @@
 defmodule Servy.Plugins do
+  @moduledoc false
+
   alias Servy.Conv
 
   def rewrite_path(%Conv{path: "/wildlife"} = conv) do
@@ -23,8 +25,9 @@ defmodule Servy.Plugins do
   def track(%Conv{} = conv), do: conv
 
   def log(%Conv{} = conv) do
+    # IO.inspect(conv, label: "conv map ✅")
+
     if Mix.env() == :dev do
-      IO.inspect(conv, label: "conv map ✅")
     end
 
     conv

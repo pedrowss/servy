@@ -1,4 +1,6 @@
 defmodule Servy.Parser do
+  @moduledoc false
+
   alias Servy.Conv
 
   def parse(request) do

@@ -1,4 +1,6 @@
 defmodule Servy.VideoCam do
+  @moduledoc false
+
   @doc """
   Simulates sending a request to an external API
   to get a snapshot image form a video camera.

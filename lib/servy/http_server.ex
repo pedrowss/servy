@@ -1,4 +1,6 @@
 defmodule Servy.HttpServer do
+  @moduledoc false
+
   @doc """
   Starts the server on the given `port` of localhost.
   """
